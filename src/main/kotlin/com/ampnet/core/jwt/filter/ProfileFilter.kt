@@ -1,12 +1,12 @@
 package com.ampnet.core.jwt.filter
 
 import com.ampnet.core.jwt.UserPrincipal
-import mu.KLogging
-import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import mu.KLogging
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.web.filter.OncePerRequestFilter
 
 class ProfileFilter : OncePerRequestFilter() {
 
