@@ -8,11 +8,11 @@ import mu.KLogging
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 
-class ProfileFilter : OncePerRequestFilter() {
+class UnverifiedProfileFilter : OncePerRequestFilter() {
 
     companion object : KLogging()
 
-    private val disabledProfileMessage = "Disabled user profile"
+    private val unVerifiedUserMessage = "User did not verified his profile."
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -24,9 +24,9 @@ class ProfileFilter : OncePerRequestFilter() {
             val principal = authentication.principal
             if (principal is UserPrincipal) {
                 val path = request.requestURI
-                if (principal.enabled.not()) {
-                    logger.warn("User: ${principal.uuid} with disabled profile try to reach $path")
-                    response.sendError(HttpServletResponse.SC_CONFLICT, disabledProfileMessage)
+                if (principal.verified.not() && path.contains("/public/").not()) {
+                    logger.warn("User: ${principal.uuid} did not verified his profile")
+                    response.sendError(HttpServletResponse.SC_CONFLICT, unVerifiedUserMessage)
                     return
                 }
             }

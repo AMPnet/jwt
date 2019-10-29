@@ -7,5 +7,6 @@ data class UserPrincipal(
     val email: String,
     val name: String,
     val authorities: Set<String>,
-    val enabled: Boolean
+    val enabled: Boolean,
+    val verified: Boolean
 )
