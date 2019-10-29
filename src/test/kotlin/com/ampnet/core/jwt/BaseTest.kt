@@ -12,6 +12,7 @@ abstract class BaseTest {
         "e@mail.com",
         "Name",
         setOf("Auth"),
+        true,
         true
     )
 
@@ -21,5 +22,6 @@ abstract class BaseTest {
         assertEquals(userPrincipal.name, decodedUserPrincipal.name)
         assertEquals(userPrincipal.authorities.toString(), decodedUserPrincipal.authorities.toString())
         assertEquals(userPrincipal.enabled, decodedUserPrincipal.enabled)
+        assertEquals(userPrincipal.verified, decodedUserPrincipal.verified)
     }
 }
