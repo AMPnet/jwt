@@ -8,7 +8,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 class JwtAuthToken(private val token: String, private val userPrincipal: UserPrincipal? = null) : Authentication {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority>? {
-        val authorities = userPrincipal?.authorities?.map { SimpleGrantedAuthority(it) }?.toList().orEmpty()
+        val authorities = userPrincipal?.authorities
+            ?.map { SimpleGrantedAuthority(it) }?.toList()
+            .orEmpty()
         return Collections.checkedCollection(authorities, SimpleGrantedAuthority::class.java)
     }
 
