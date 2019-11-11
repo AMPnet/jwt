@@ -1,5 +1,5 @@
 # jwt
-[![](https://jitpack.io/v/AMPnet/jwt.svg)](https://jitpack.io/#AMPnet/jwt) [![](https://jitci.com/gh/AMPnet/jwt/svg)](https://jitci.com/gh/AMPnet/jwt)
+[![](https://jitpack.io/v/AMPnet/jwt.svg)](https://jitpack.io/#AMPnet/jwt) [![](https://jitci.com/gh/AMPnet/jwt/svg)](https://jitci.com/gh/AMPnet/jwt) ![](https://github.com/AMPnet/jwt/workflows/Java%20CI/badge.svg?branch=master)
 
 Spring Boot library for JWT used in Crowdfunding services.
 
