@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "com.github.AMPnet"
-version = "0.0.3"
+version = "0.1.0"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
