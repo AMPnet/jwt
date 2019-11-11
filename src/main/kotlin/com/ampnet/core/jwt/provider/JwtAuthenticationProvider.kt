@@ -10,6 +10,11 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
+/**
+ * Class for authenticating user via JWT.
+ *
+ * @property publicKey public key as String in DER format for verifying JWT signature.
+ */
 class JwtAuthenticationProvider(private val publicKey: String) : AuthenticationProvider {
 
     companion object : KLogging()

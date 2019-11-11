@@ -8,6 +8,10 @@ import mu.KLogging
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 
+/**
+ * Filter class for eliminating users with unverified account.
+ * User verification data is contained in UserPrincipal filed verified.
+ */
 class UnverifiedProfileFilter : OncePerRequestFilter() {
 
     companion object : KLogging()

@@ -18,6 +18,11 @@ import io.jsonwebtoken.security.WeakKeyException
 import java.io.Serializable
 import java.util.Date
 
+/**
+ * This class provides static methods for encoding
+ * and decoding of JWT.
+ * For JWT specification see: <a href="http://www.ietf.org/rfc/rfc7519.txt">RCF 7519</a>
+ */
 object JwtTokenUtils : Serializable {
 
     private const val userKey = "user"

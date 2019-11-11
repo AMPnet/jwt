@@ -8,6 +8,10 @@ import mu.KLogging
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 
+/**
+ * Filter class for eliminating users with disabled account.
+ * User disabled data is contained in UserPrincipal filed enabled.
+ */
 class DisabledProfileFilter : OncePerRequestFilter() {
 
     companion object : KLogging()
