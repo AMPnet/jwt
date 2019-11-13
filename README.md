@@ -12,13 +12,11 @@ To install the library add:
       maven { url "https://jitpack.io" }
  }
  dependencies {
-      implementation 'com.github.AMPnet:jwt:0.0.3'
+      implementation 'com.github.AMPnet:jwt:0.1.0'
   }
  ```  
 
 ## Example
-Encoded JWT: ```eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlQG1haWwuY29tIiwidXNlciI6IntcInV1aWRcIjpcIjM3MGEyNDhlLWNiZDAtNGFmOC1iMWQ1LTA4NTFhM2Q2NTRkYlwiLFwiZW1haWxcIjpcImVAbWFpbC5jb21cIixcIm5hbWVcIjpcIk5hbWVcIixcImF1dGhvcml0aWVzXCI6W1wiQXV0aFwiXSxcImVuYWJsZWRcIjp0cnVlLFwidmVyaWZpZWRcIjp0cnVlfSIsImlhdCI6MTU3MzA1MDIyNiwiZXhwIjoxNTczMDUwMjI5fQ.3RQKemUGZBQoKVg9P5qBmcAtkpwW6vomfJWVvfz3o94```
-
 Decode JWT payload: 
 ```json
 {
@@ -28,3 +26,4 @@ Decode JWT payload:
   "exp": 1573050229
 }
 ```
+Encoded JWT: ```eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJlQG1haWwuY29tIiwidXNlciI6IntcInV1aWRcIjpcIjM3MGEyNDhlLWNiZDAtNGFmOC1iMWQ1LTA4NTFhM2Q2NTRkYlwiLFwiZW1haWxcIjpcImVAbWFpbC5jb21cIixcIm5hbWVcIjpcIk5hbWVcIixcImF1dGhvcml0aWVzXCI6W1wiQXV0aFwiXSxcImVuYWJsZWRcIjp0cnVlLFwidmVyaWZpZWRcIjp0cnVlfSIsImlhdCI6MTU3MzIyNjEyMiwiZXhwIjoxNTczMjI2MTUyfQ.sXNTDuml_ztVNlrYwoplwz-4KRsyB9sxKCHjJdMz10zF53JWjVWAAAtqxFpR5G0lwtxtwMYVbIf6nJpsaf5bDHds87DVbYNuKCiIWVcoLLUbradTJms0DUPuF6RkYGBho4pjMQMZtPR2L1EO3Y3dh7xy23devsOmtMVv3P-Kf3g2yULbrh6WedYsQ2MxWOXQqmbXFF6W_EqVmTVFYHxpkzNDxxhmkYOp90JgPtv6VN9tdhzvwmOyZ-oonE5-CLBevgLAD2xdn4Bgeqjczvc0JGVRWXwEtWi-3FqGc548enUU03_cAprzLl6Cjn_VGIBJxsFD3TBOsYZ4xUOIH7j1xw```

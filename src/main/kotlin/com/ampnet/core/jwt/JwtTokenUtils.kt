@@ -1,6 +1,6 @@
 package com.ampnet.core.jwt
 
-import com.ampnet.core.jwt.exception.SigningKeyException
+import com.ampnet.core.jwt.exception.KeyException
 import com.ampnet.core.jwt.exception.TokenException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.PropertyNamingStrategy
@@ -14,15 +14,19 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.JacksonDeserializer
 import io.jsonwebtoken.io.JacksonSerializer
-import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.WeakKeyException
 import java.io.Serializable
 import java.util.Date
-import javax.crypto.SecretKey
 
+/**
+ * This class provides static methods for encoding
+ * and decoding of JWT.
+ * For JWT specification see: <a href="http://www.ietf.org/rfc/rfc7519.txt">RCF 7519</a>
+ */
 object JwtTokenUtils : Serializable {
 
     private const val userKey = "user"
+    private val rsaKeyDecoder = RsaKeyDecoder()
     private val objectMapper: ObjectMapper by lazy {
         val mapper = ObjectMapper()
         mapper.propertyNamingStrategy = PropertyNamingStrategy.SNAKE_CASE
@@ -30,13 +34,22 @@ object JwtTokenUtils : Serializable {
         mapper.registerModule(KotlinModule())
     }
 
-    @Throws(TokenException::class)
-    fun decodeToken(token: String, signingKey: String): UserPrincipal {
+    /**
+     * Decode UserPrincipal data from JWT.
+     *
+     * @param token encoded JWT.
+     * @param publicKey public key as String in DER format for verifying JWT signature.
+     * @return decoded UserPrincipal data from JWT.
+     * @exception KeyException if the [publicKey] is invalid format.
+     * @exception TokenException if the [token] is not valid.
+     */
+    @Throws(KeyException::class, TokenException::class)
+    fun decodeToken(token: String, publicKey: String): UserPrincipal {
+        val decodedPublicKey = rsaKeyDecoder.getPublicKey(publicKey)
         try {
-            val key: SecretKey = Keys.hmacShaKeyFor(signingKey.toByteArray())
             val jwtParser = Jwts.parser()
-                    .deserializeJsonWith(JacksonDeserializer(objectMapper))
-                    .setSigningKey(key)
+                .deserializeJsonWith(JacksonDeserializer(objectMapper))
+                .setSigningKey(decodedPublicKey)
             val claimsJws = jwtParser.parseClaimsJws(token)
             val claims = claimsJws.body
             validateExpiration(claims)
@@ -46,20 +59,30 @@ object JwtTokenUtils : Serializable {
         }
     }
 
-    @Throws(SigningKeyException::class)
-    fun encodeToken(userPrincipal: UserPrincipal, signingKey: String, validityInMillis: Long): String {
+    /**
+     * Encode UserPrincipal data to JWT.
+     *
+     * @param userPrincipal user principal data to encode to JWT.
+     * @param privateKey private key as String in DER format  to sign JWT.
+     * @param validityInMillis validity of JWT in milliseconds.
+     * @return encoded JWT token.
+     * @exception KeyException if the [privateKey] is invalid format.
+     * @exception TokenException if the [privateKey] is too weak.
+     */
+    @Throws(KeyException::class, TokenException::class)
+    fun encodeToken(userPrincipal: UserPrincipal, privateKey: String, validityInMillis: Long): String {
+        val decodedPrivateKey = rsaKeyDecoder.getPrivateKey(privateKey)
         try {
-            val key: SecretKey = Keys.hmacShaKeyFor(signingKey.toByteArray())
             return Jwts.builder()
                 .serializeToJsonWith(JacksonSerializer(objectMapper))
                 .setSubject(userPrincipal.email)
                 .claim(userKey, objectMapper.writeValueAsString(userPrincipal))
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(decodedPrivateKey, SignatureAlgorithm.RS256)
                 .setIssuedAt(Date())
                 .setExpiration(Date(System.currentTimeMillis() + validityInMillis))
                 .compact()
         } catch (ex: WeakKeyException) {
-            throw SigningKeyException("Signing key is too weak", ex)
+            throw KeyException("Signing key is too weak", ex)
         }
     }
 

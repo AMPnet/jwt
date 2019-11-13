@@ -10,7 +10,12 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
-class JwtAuthenticationProvider(private val signingKey: String) : AuthenticationProvider {
+/**
+ * Class for authenticating user via JWT.
+ *
+ * @property publicKey public key as String in DER format for verifying JWT signature.
+ */
+class JwtAuthenticationProvider(private val publicKey: String) : AuthenticationProvider {
 
     companion object : KLogging()
 
@@ -18,7 +23,7 @@ class JwtAuthenticationProvider(private val signingKey: String) : Authentication
         val token = authentication.credentials
         if (token is String) {
             try {
-                val userPrincipal = JwtTokenUtils.decodeToken(token, signingKey)
+                val userPrincipal = JwtTokenUtils.decodeToken(token, publicKey)
                 return JwtAuthToken(token, userPrincipal)
             } catch (ex: TokenException) {
                 logger.info("Invalid JWT token", ex)

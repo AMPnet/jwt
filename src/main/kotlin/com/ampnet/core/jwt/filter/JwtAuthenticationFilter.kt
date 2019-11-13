@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletResponse
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 
+/**
+ * Filter class for extracting JWT from Authorization header
+ * and setting it to Spring security context authentication.
+ */
 class JwtAuthenticationFilter : OncePerRequestFilter() {
 
     private val headerName = "Authorization"

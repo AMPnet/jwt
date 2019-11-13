@@ -12,11 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 
 class JwtAuthenticationProviderTest : BaseTest() {
 
-    private val authenticationProvider = JwtAuthenticationProvider(signingKey)
+    private val authenticationProvider = JwtAuthenticationProvider(publicKey)
 
     @Test
     fun mustReturnJwtAuthToken() {
-        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, signingKey, validityInMillis)
+        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, privateKey, validityInMillis)
         val incomingAuth = JwtAuthToken(jwtToken)
         assertFalse(incomingAuth.isAuthenticated)
 
