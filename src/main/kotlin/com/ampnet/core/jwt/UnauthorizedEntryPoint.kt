@@ -13,6 +13,6 @@ class UnauthorizedEntryPoint : AuthenticationEntryPoint, Serializable {
         response: HttpServletResponse?,
         authException: AuthenticationException?
     ) {
-        response?.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized")
+        response?.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized entry point")
     }
 }

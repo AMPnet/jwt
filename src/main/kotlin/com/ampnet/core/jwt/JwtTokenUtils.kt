@@ -12,8 +12,8 @@ import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import io.jsonwebtoken.io.JacksonDeserializer
-import io.jsonwebtoken.io.JacksonSerializer
+import io.jsonwebtoken.jackson.io.JacksonDeserializer
+import io.jsonwebtoken.jackson.io.JacksonSerializer
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.WeakKeyException
 import java.io.Serializable
@@ -34,9 +34,10 @@ object JwtTokenUtils : Serializable {
     fun decodeToken(token: String, signingKey: String): UserPrincipal {
         try {
             val key: SecretKey = Keys.hmacShaKeyFor(signingKey.toByteArray())
-            val jwtParser = Jwts.parser()
-                    .deserializeJsonWith(JacksonDeserializer(objectMapper))
-                    .setSigningKey(key)
+            val jwtParser = Jwts.parserBuilder()
+                .deserializeJsonWith(JacksonDeserializer(objectMapper))
+                .setSigningKey(key)
+                .build()
             val claimsJws = jwtParser.parseClaimsJws(token)
             val claims = claimsJws.body
             validateExpiration(claims)
@@ -72,7 +73,7 @@ object JwtTokenUtils : Serializable {
 
     private fun getUserPrincipal(claims: Claims): UserPrincipal {
         val principalClaims = claims[userKey] as? String
-                ?: throw TokenException("Token principal claims in invalid format")
+            ?: throw TokenException("Token principal claims in invalid format")
         try {
             return objectMapper.readValue(principalClaims)
         } catch (ex: MissingKotlinParameterException) {
