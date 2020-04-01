@@ -3,18 +3,18 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    val kotlinVersion = "1.3.61"
+    val kotlinVersion = "1.3.71"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 
-    id("org.springframework.boot") version "2.2.5.RELEASE"
+    id("org.springframework.boot") version "2.2.6.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     `maven-publish`
 }
 
 group = "com.github.AMPnet"
-version = "0.0.5"
+version = "0.0.6"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    val jjwtVersion = "0.11.0"
+    val jjwtVersion = "0.11.1"
 
     implementation("org.springframework.security:spring-security-web")
     implementation("javax.servlet:javax.servlet-api")
