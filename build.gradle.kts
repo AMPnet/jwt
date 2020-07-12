@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "com.github.AMPnet"
-version = "0.1.1"
+version = "0.1.2"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -30,6 +30,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 
     implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
