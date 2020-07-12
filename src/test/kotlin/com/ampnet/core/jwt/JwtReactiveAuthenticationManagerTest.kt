@@ -20,7 +20,6 @@ class JwtReactiveAuthenticationManagerTest : BaseTest() {
         val authentication = authenticationManager.authenticate(incomingAuth).block()
             ?: Assertions.fail("Missing authentication")
 
-
         val userPrincipal = authentication.principal as? UserPrincipal
             ?: Assertions.fail("Missing principal in JwtAuthToken")
         assertUserPrincipal(userPrincipal)
