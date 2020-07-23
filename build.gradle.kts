@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "com.github.AMPnet"
-version = "0.0.7"
+version = "0.0.8"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    val jjwtVersion = "0.11.1"
+    val jjwtVersion = "0.11.2"
 
     implementation("org.springframework.security:spring-security-web")
     implementation("javax.servlet:javax.servlet-api")
