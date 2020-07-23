@@ -9,11 +9,11 @@ import reactor.test.StepVerifier
 
 class JwtReactiveAuthenticationManagerTest : BaseTest() {
 
-    private val authenticationManager = JwtReactiveAuthenticationManager(publicKey)
+    private val authenticationManager = JwtReactiveAuthenticationManager(signingKey)
 
     @Test
     fun mustReturnJwtAuthToken() {
-        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, privateKey, validityInMillis)
+        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, signingKey, validityInMillis)
         val incomingAuth = JwtAuthToken(jwtToken)
         Assertions.assertFalse(incomingAuth.isAuthenticated)
 
