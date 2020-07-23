@@ -3,12 +3,17 @@ package com.ampnet.core.jwt.provider
 import com.ampnet.core.jwt.JwtAuthToken
 import com.ampnet.core.jwt.JwtTokenUtils
 import com.ampnet.core.jwt.exception.TokenException
-import mu.KLogging
+import mu.KotlinLogging
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.BadCredentialsException
+import org.springframework.security.authentication.ReactiveAuthenticationManager
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import reactor.core.publisher.Mono
+
+private val logger = KotlinLogging.logger {}
+private const val missingJwtToken = "Authentication is missing JWT token!"
 
 /**
  * Class for authenticating user via JWT.
@@ -16,8 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
  * @property publicKey public key as String in DER format for verifying JWT signature.
  */
 class JwtAuthenticationProvider(private val publicKey: String) : AuthenticationProvider {
-
-    companion object : KLogging()
 
     override fun authenticate(authentication: Authentication): Authentication {
         val token = authentication.credentials
@@ -32,8 +35,20 @@ class JwtAuthenticationProvider(private val publicKey: String) : AuthenticationP
             }
         }
         logger.info { "Missing Authentication credentials" }
-        throw UsernameNotFoundException("Authentication is missing JWT token!")
+        throw UsernameNotFoundException(missingJwtToken)
     }
 
     override fun supports(authentication: Class<*>): Boolean = authentication == JwtAuthToken::class.java
+}
+
+class JwtReactiveAuthenticationManager(private val publicKey: String) : ReactiveAuthenticationManager {
+    override fun authenticate(authentication: Authentication): Mono<Authentication> {
+        return Mono.just(authentication)
+            .map { it.credentials as String }
+            .switchIfEmpty(Mono.error(UsernameNotFoundException(missingJwtToken)))
+            .map { token ->
+                val userPrincipal = JwtTokenUtils.decodeToken(token, publicKey)
+                JwtAuthToken(token, userPrincipal)
+            }
+    }
 }
