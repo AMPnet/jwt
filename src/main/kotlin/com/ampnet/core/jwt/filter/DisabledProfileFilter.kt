@@ -16,7 +16,7 @@ import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
 private val logger = KotlinLogging.logger {}
-private const val disabledProfileMessage = "Disabled user profile"
+private const val disabledProfileMessage = "Your profile has been disabled. Please contact support."
 
 class DisabledProfileFilter : OncePerRequestFilter() {
 

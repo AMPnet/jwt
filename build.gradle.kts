@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "com.github.AMPnet"
-version = "0.0.8"
+version = "0.0.9"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -35,7 +35,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
     implementation("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
-    implementation("io.github.microutils:kotlin-logging:1.7.8")
+    implementation("io.github.microutils:kotlin-logging:1.8.3")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
