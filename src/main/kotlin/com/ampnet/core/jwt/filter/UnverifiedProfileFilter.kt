@@ -17,7 +17,7 @@ import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
 private val logger = KotlinLogging.logger {}
-private const val unVerifiedUserMessage = "User did not verified his profile."
+private const val unVerifiedUserMessage = "User profile not verified. Please go to User Profile and verify your identity."
 
 /**
  * Filter class for eliminating users with unverified account.
