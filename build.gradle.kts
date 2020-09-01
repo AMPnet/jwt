@@ -7,14 +7,14 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 
-    id("org.springframework.boot") version "2.3.1.RELEASE"
+    id("org.springframework.boot") version "2.2.8.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
+    id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
     `maven-publish`
 }
 
 group = "com.github.AMPnet"
-version = "0.1.4"
+version = "0.1.5"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -35,7 +35,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
     implementation("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
-    implementation("io.github.microutils:kotlin-logging:1.7.10")
+    implementation("io.github.microutils:kotlin-logging:1.8.3")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

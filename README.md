@@ -12,7 +12,7 @@ To install the library add:
       maven { url "https://jitpack.io" }
  }
  dependencies {
-      implementation 'com.github.AMPnet:jwt:0.1.4'
+      implementation 'com.github.AMPnet:jwt:0.1.5'
   }
  ```  
 
