@@ -1,9 +1,9 @@
 package com.ampnet.core.jwt
 
-import java.util.Collections
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import java.util.Collections
 
 class JwtAuthToken(private val token: String, private val userPrincipal: UserPrincipal? = null) : Authentication {
 

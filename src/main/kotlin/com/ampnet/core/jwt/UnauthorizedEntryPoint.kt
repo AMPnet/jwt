@@ -1,10 +1,10 @@
 package com.ampnet.core.jwt
 
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.web.AuthenticationEntryPoint
 import java.io.Serializable
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import org.springframework.security.core.AuthenticationException
-import org.springframework.security.web.AuthenticationEntryPoint
 
 /**
  * Entry point to set all unauthenticated requests as unauthorized.

@@ -1,9 +1,6 @@
 package com.ampnet.core.jwt.filter
 
 import com.ampnet.core.jwt.UserPrincipal
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
@@ -14,6 +11,9 @@ import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
+import javax.servlet.FilterChain
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 private val logger = KotlinLogging.logger {}
 private const val disabledProfileMessage = "Your profile has been disabled. Please contact support."
@@ -55,8 +55,10 @@ class DisabledProfileWebFilter : WebFilter {
             }
             .handle { userPrincipal, sink ->
                 if (userPrincipal.enabled.not()) {
-                    logger.warn("User: ${userPrincipal.uuid} with disabled profile try to reach " +
-                        "${exchange.request.uri}")
+                    logger.warn(
+                        "User: ${userPrincipal.uuid} with disabled profile try to reach " +
+                            "${exchange.request.uri}"
+                    )
                     sink.error(ResponseStatusException(HttpStatus.CONFLICT, disabledProfileMessage))
                 } else {
                     chain.filter(exchange)

@@ -1,12 +1,12 @@
 package com.ampnet.core.jwt.filter
 
 import com.ampnet.core.jwt.JwtAuthToken
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
+import javax.servlet.FilterChain
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 const val tokenPrefix = "Bearer "
 

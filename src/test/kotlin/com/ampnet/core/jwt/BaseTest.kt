@@ -1,7 +1,7 @@
 package com.ampnet.core.jwt
 
-import java.util.UUID
 import org.junit.jupiter.api.Assertions.assertEquals
+import java.util.UUID
 
 abstract class BaseTest {
 

@@ -1,9 +1,6 @@
 package com.ampnet.core.jwt.filter
 
 import com.ampnet.core.jwt.UserPrincipal
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 import mu.KLogging
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
@@ -15,6 +12,9 @@ import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
+import javax.servlet.FilterChain
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 private val logger = KotlinLogging.logger {}
 private const val unVerifiedUserMessage = "User profile not verified. Please go to User Profile and verify your identity."
