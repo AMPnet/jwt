@@ -12,7 +12,7 @@ To install the library add:
       maven { url "https://jitpack.io" }
  }
  dependencies {
-      implementation 'com.github.AMPnet:jwt:0.1.0'
+      implementation 'com.github.AMPnet:jwt:0.1.4'
   }
  ```  
 
@@ -21,9 +21,9 @@ Decode JWT payload:
 ```json
 {
   "sub": "e@mail.com",
-  "user": "{\"uuid\":\"370a248e-cbd0-4af8-b1d5-0851a3d654db\",\"email\":\"e@mail.com\",\"name\":\"Name\",\"authorities\":[\"Auth\"],\"enabled\":true,\"verified\":true}",
-  "iat": 1573050226,
-  "exp": 1573050229
+  "user": "{\"uuid\":\"370a248e-cbd0-4af8-b1d5-0851a3d654db\",\"email\":\"e@mail.com\",\"name\":\"Name\",\"authorities\":[\"Auth\"],\"enabled\":true,\"verified\":true,\"coop\":\"ampnet-demo\"}",
+  "iat": 1598959052,
+  "exp": 1598959082
 }
 ```
-Encoded JWT: ```eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJlQG1haWwuY29tIiwidXNlciI6IntcInV1aWRcIjpcIjM3MGEyNDhlLWNiZDAtNGFmOC1iMWQ1LTA4NTFhM2Q2NTRkYlwiLFwiZW1haWxcIjpcImVAbWFpbC5jb21cIixcIm5hbWVcIjpcIk5hbWVcIixcImF1dGhvcml0aWVzXCI6W1wiQXV0aFwiXSxcImVuYWJsZWRcIjp0cnVlLFwidmVyaWZpZWRcIjp0cnVlfSIsImlhdCI6MTU3MzIyNjEyMiwiZXhwIjoxNTczMjI2MTUyfQ.sXNTDuml_ztVNlrYwoplwz-4KRsyB9sxKCHjJdMz10zF53JWjVWAAAtqxFpR5G0lwtxtwMYVbIf6nJpsaf5bDHds87DVbYNuKCiIWVcoLLUbradTJms0DUPuF6RkYGBho4pjMQMZtPR2L1EO3Y3dh7xy23devsOmtMVv3P-Kf3g2yULbrh6WedYsQ2MxWOXQqmbXFF6W_EqVmTVFYHxpkzNDxxhmkYOp90JgPtv6VN9tdhzvwmOyZ-oonE5-CLBevgLAD2xdn4Bgeqjczvc0JGVRWXwEtWi-3FqGc548enUU03_cAprzLl6Cjn_VGIBJxsFD3TBOsYZ4xUOIH7j1xw```
+Encoded JWT: ```eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJlQG1haWwuY29tIiwidXNlciI6IntcInV1aWRcIjpcIjM3MGEyNDhlLWNiZDAtNGFmOC1iMWQ1LTA4NTFhM2Q2NTRkYlwiLFwiZW1haWxcIjpcImVAbWFpbC5jb21cIixcIm5hbWVcIjpcIk5hbWVcIixcImF1dGhvcml0aWVzXCI6W1wiQXV0aFwiXSxcImVuYWJsZWRcIjp0cnVlLFwidmVyaWZpZWRcIjp0cnVlLFwiY29vcFwiOlwiYW1wbmV0LWRlbW9cIn0iLCJpYXQiOjE1OTg5NTkwNTIsImV4cCI6MTU5ODk1OTA4Mn0.c-2GIMtUWPKl9ACTAci0_L1xmucEnuFQFYFAlDfjGsqvPhlZ1P6tR0X0dh6V0hk6W17si0RQMcATAQEd5HzKgk3U5OEisGITiLOxyqFciK6UTd2BLstgysp8Fnn282S1UOL7aPEG-mZ4ysElcITps6l-SUoiqS8w5hel_hclzG2efjsCmmKOIaBf5Zoe7OPh-A6-UjxxirfDbZk1TLdXdSs0p2lsIK33EJpLGOq-zOkJHKAvLNTaUS5C_Dnfk6viU4aTS0Pa2QFL3VFID0Bskw1mHUvm3aGsk8aWouT0RGGOGivZYyulIPlyYv8u9aMRfrtfh5d5Q4E1dNbWvRK0PA```
