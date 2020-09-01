@@ -50,7 +50,8 @@ abstract class BaseTest {
         "Name",
         setOf("Auth"),
         true,
-        true
+        true,
+        "ampnet-demo"
     )
 
     protected fun assertUserPrincipal(decodedUserPrincipal: UserPrincipal) {
@@ -60,5 +61,6 @@ abstract class BaseTest {
         assertEquals(userPrincipal.authorities.toString(), decodedUserPrincipal.authorities.toString())
         assertEquals(userPrincipal.enabled, decodedUserPrincipal.enabled)
         assertEquals(userPrincipal.verified, decodedUserPrincipal.verified)
+        assertEquals(userPrincipal.coop, decodedUserPrincipal.coop)
     }
 }

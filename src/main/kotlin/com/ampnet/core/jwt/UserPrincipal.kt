@@ -8,5 +8,6 @@ data class UserPrincipal(
     val name: String,
     val authorities: Set<String>,
     val enabled: Boolean,
-    val verified: Boolean
+    val verified: Boolean,
+    val coop: String
 )
