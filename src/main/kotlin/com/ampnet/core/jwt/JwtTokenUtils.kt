@@ -67,8 +67,7 @@ object JwtTokenUtils : Serializable {
      * @param privateKey private key as String in DER format  to sign JWT.
      * @param validityInMillis validity of JWT in milliseconds.
      * @return encoded JWT token.
-     * @exception KeyException if the [privateKey] is invalid format.
-     * @exception TokenException if the [privateKey] is too weak.
+     * @exception KeyException if the [privateKey] is invalid format or too weak.
      */
     @Throws(KeyException::class, TokenException::class)
     fun encodeToken(userPrincipal: UserPrincipal, privateKey: String, validityInMillis: Long): String {
