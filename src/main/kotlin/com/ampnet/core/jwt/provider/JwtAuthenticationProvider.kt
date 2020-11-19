@@ -29,9 +29,9 @@ class JwtAuthenticationProvider(private val publicKey: String) : AuthenticationP
                 val userPrincipal = JwtTokenUtils.decodeToken(token, publicKey)
                 return JwtAuthToken(token, userPrincipal)
             } catch (ex: TokenException) {
-                logger.info("Invalid JWT token", ex)
+                logger.info("Invalid JWT", ex)
                 SecurityContextHolder.clearContext()
-                throw BadCredentialsException("Invalid JWT token")
+                throw BadCredentialsException("Invalid JWT")
             }
         }
         logger.info { "Missing Authentication credentials" }
