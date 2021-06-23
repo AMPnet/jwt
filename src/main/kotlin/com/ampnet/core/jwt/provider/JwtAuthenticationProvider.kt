@@ -26,8 +26,8 @@ class JwtAuthenticationProvider(private val publicKey: String) : AuthenticationP
         val token = authentication.credentials
         if (token is String) {
             try {
-                val userPrincipal = JwtTokenUtils.decodeToken(token, publicKey)
-                return JwtAuthToken(token, userPrincipal)
+                val address = JwtTokenUtils.decodeToken(token, publicKey)
+                return JwtAuthToken(token, address)
             } catch (ex: TokenException) {
                 logger.info("Invalid JWT", ex)
                 SecurityContextHolder.clearContext()
@@ -47,8 +47,8 @@ class JwtReactiveAuthenticationManager(private val publicKey: String) : Reactive
             .map { it.credentials as String }
             .switchIfEmpty(Mono.error(UsernameNotFoundException(missingJwtToken)))
             .map { token ->
-                val userPrincipal = JwtTokenUtils.decodeToken(token, publicKey)
-                JwtAuthToken(token, userPrincipal)
+                val address = JwtTokenUtils.decodeToken(token, publicKey)
+                JwtAuthToken(token, address)
             }
     }
 }
