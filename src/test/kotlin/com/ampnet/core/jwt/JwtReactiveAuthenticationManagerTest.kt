@@ -21,7 +21,7 @@ class JwtReactiveAuthenticationManagerTest : BaseTest() {
 
         val authentication = authenticationManager.authenticate(incomingAuth).block()
             ?: Assertions.fail("Missing authentication")
-        val addressAuthenticated = authentication.principal as? Address
+        val addressAuthenticated = authentication.principal as? String
             ?: Assertions.fail("Missing address in JwtAuthToken")
         assertEquals(addressAuthenticated, address)
     }

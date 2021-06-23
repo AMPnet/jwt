@@ -24,7 +24,7 @@ class JwtAuthenticationProviderTest : BaseTest() {
         val authentication = authenticationProvider.authenticate(incomingAuth)
         assertTrue(authentication.isAuthenticated)
 
-        val addressAuthenticated = authentication.principal as? Address
+        val addressAuthenticated = authentication.principal as? String
             ?: fail("Missing address in JwtAuthToken")
         assertEquals(addressAuthenticated, address)
     }

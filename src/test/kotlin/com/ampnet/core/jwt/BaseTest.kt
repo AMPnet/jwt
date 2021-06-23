@@ -41,5 +41,5 @@ abstract class BaseTest {
         "-----END PRIVATE KEY-----"
 
     protected val validityInMillis = 500 * 60L
-    protected val address = Address("0x745367860c5015B1E0AC04E00f1DbAd83B7dC272")
+    protected val address = "0x745367860c5015B1E0AC04E00f1DbAd83B7dC272"
 }
