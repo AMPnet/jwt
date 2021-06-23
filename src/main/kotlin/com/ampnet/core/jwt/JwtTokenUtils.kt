@@ -25,7 +25,7 @@ import java.util.Date
  */
 object JwtTokenUtils : Serializable {
 
-    private const val userKey = "user"
+    private const val addressKey = "address"
     private const val jwtSubject = "AMPnet"
     private val rsaKeyDecoder = RsaKeyDecoder()
     private val objectMapper: ObjectMapper by lazy {
@@ -77,7 +77,7 @@ object JwtTokenUtils : Serializable {
             return Jwts.builder()
                 .setSubject(jwtSubject)
                 .serializeToJsonWith(JacksonSerializer(objectMapper))
-                .claim(userKey, objectMapper.writeValueAsString(address))
+                .claim(addressKey, objectMapper.writeValueAsString(address))
                 .signWith(decodedPrivateKey, SignatureAlgorithm.RS256)
                 .setIssuedAt(Date())
                 .setExpiration(Date(System.currentTimeMillis() + validityInMillis))
@@ -95,12 +95,12 @@ object JwtTokenUtils : Serializable {
     }
 
     private fun getAddress(claims: Claims): Address {
-        val address = claims[userKey] as? String
+        val address = claims[addressKey] as? String
             ?: throw TokenException("Token principal claims in invalid format")
         try {
             return objectMapper.readValue(address)
         } catch (ex: MissingKotlinParameterException) {
-            throw TokenException("Could not extract address from JWT token for key: $userKey", ex)
+            throw TokenException("Could not extract address from JWT token for key: $addressKey", ex)
         }
     }
 }
