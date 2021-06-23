@@ -3,13 +3,13 @@ package com.ampnet.core.jwt
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 
-class JwtAuthToken(private val token: String, private val address: Address? = null) : Authentication {
+class JwtAuthToken(private val token: String, private val address: String? = null) : Authentication {
 
     override fun setAuthenticated(isAuthenticated: Boolean) {
         // not needed
     }
 
-    override fun getName(): String? = address?.userAddress
+    override fun getName(): String? = address
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         TODO("Not yet implemented")

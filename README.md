@@ -21,7 +21,7 @@ Decode JWT payload:
 ```json
 {
   "sub": "AMPnet",
-  "address": "{\"userAddress\":\"0x745367860c5015B1E0AC04E00f1DbAd83B7dC272\"}",
+  "address": "0x745367860c5015B1E0AC04E00f1DbAd83B7dC272",
   "iat": 1598959052,
   "exp": 1598959082
 }
