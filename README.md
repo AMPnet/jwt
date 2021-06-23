@@ -12,7 +12,7 @@ To install the library add:
       maven { url "https://jitpack.io" }
  }
  dependencies {
-      implementation 'com.github.AMPnet:jwt:0.1.5'
+      implementation 'com.github.AMPnet:jwt:1.0.0'
   }
  ```  
 
@@ -20,8 +20,8 @@ To install the library add:
 Decode JWT payload: 
 ```json
 {
-  "sub": "e@mail.com",
-  "user": "{\"uuid\":\"370a248e-cbd0-4af8-b1d5-0851a3d654db\",\"email\":\"e@mail.com\",\"name\":\"Name\",\"authorities\":[\"Auth\"],\"enabled\":true,\"verified\":true,\"coop\":\"ampnet-demo\"}",
+  "sub": "AMPnet",
+  "user": "{\"userAddress\":\"0x745367860c5015B1E0AC04E00f1DbAd83B7dC272\"}",
   "iat": 1598959052,
   "exp": 1598959082
 }
