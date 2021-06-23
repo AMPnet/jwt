@@ -2,6 +2,8 @@ package com.ampnet.core.jwt
 
 import com.ampnet.core.jwt.exception.TokenException
 import com.ampnet.core.jwt.provider.JwtReactiveAuthenticationManager
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertFalse
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -13,16 +15,15 @@ class JwtReactiveAuthenticationManagerTest : BaseTest() {
 
     @Test
     fun mustReturnJwtAuthToken() {
-        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, privateKey, validityInMillis)
+        val jwtToken = JwtTokenUtils.encodeToken(address, privateKey, validityInMillis)
         val incomingAuth = JwtAuthToken(jwtToken)
-        Assertions.assertFalse(incomingAuth.isAuthenticated)
+        assertFalse(incomingAuth.isAuthenticated)
 
         val authentication = authenticationManager.authenticate(incomingAuth).block()
             ?: Assertions.fail("Missing authentication")
-
-        val userPrincipal = authentication.principal as? UserPrincipal
-            ?: Assertions.fail("Missing principal in JwtAuthToken")
-        assertUserPrincipal(userPrincipal)
+        val addressAuthenticated = authentication.principal as? Address
+            ?: Assertions.fail("Missing address in JwtAuthToken")
+        assertEquals(addressAuthenticated, address)
     }
 
     @Test

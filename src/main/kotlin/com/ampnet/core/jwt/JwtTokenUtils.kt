@@ -26,6 +26,7 @@ import java.util.Date
 object JwtTokenUtils : Serializable {
 
     private const val userKey = "user"
+    private const val jwtSubject = "AMPnet"
     private val rsaKeyDecoder = RsaKeyDecoder()
     private val objectMapper: ObjectMapper by lazy {
         val mapper = ObjectMapper()
@@ -35,16 +36,16 @@ object JwtTokenUtils : Serializable {
     }
 
     /**
-     * Decode UserPrincipal data from JWT.
+     * Decode Address from JWT.
      *
      * @param token encoded JWT.
      * @param publicKey public key as String in DER format for verifying JWT signature.
-     * @return decoded UserPrincipal data from JWT.
+     * @return decoded Address data from JWT.
      * @exception KeyException if the [publicKey] is invalid format.
      * @exception TokenException if the [token] is not valid.
      */
     @Throws(KeyException::class, TokenException::class)
-    fun decodeToken(token: String, publicKey: String): UserPrincipal {
+    fun decodeToken(token: String, publicKey: String): Address {
         val decodedPublicKey = rsaKeyDecoder.getPublicKey(publicKey)
         try {
             val jwtParser = Jwts.parserBuilder()
@@ -54,29 +55,29 @@ object JwtTokenUtils : Serializable {
             val claimsJws = jwtParser.parseClaimsJws(token)
             val claims = claimsJws.body
             validateExpiration(claims)
-            return getUserPrincipal(claims)
+            return getAddress(claims)
         } catch (ex: JwtException) {
             throw TokenException("Could not validate JWT token", ex)
         }
     }
 
     /**
-     * Encode UserPrincipal data to JWT.
+     * Encode Address data to JWT.
      *
-     * @param userPrincipal user principal data to encode to JWT.
+     * @param address Address data to encode to JWT.
      * @param privateKey private key as String in DER format  to sign JWT.
      * @param validityInMillis validity of JWT in milliseconds.
      * @return encoded JWT token.
      * @exception KeyException if the [privateKey] is invalid format or too weak.
      */
     @Throws(KeyException::class, TokenException::class)
-    fun encodeToken(userPrincipal: UserPrincipal, privateKey: String, validityInMillis: Long): String {
+    fun encodeToken(address: Address, privateKey: String, validityInMillis: Long): String {
         val decodedPrivateKey = rsaKeyDecoder.getPrivateKey(privateKey)
         try {
             return Jwts.builder()
+                .setSubject(jwtSubject)
                 .serializeToJsonWith(JacksonSerializer(objectMapper))
-                .setSubject(userPrincipal.email)
-                .claim(userKey, objectMapper.writeValueAsString(userPrincipal))
+                .claim(userKey, objectMapper.writeValueAsString(address))
                 .signWith(decodedPrivateKey, SignatureAlgorithm.RS256)
                 .setIssuedAt(Date())
                 .setExpiration(Date(System.currentTimeMillis() + validityInMillis))
@@ -93,13 +94,13 @@ object JwtTokenUtils : Serializable {
         }
     }
 
-    private fun getUserPrincipal(claims: Claims): UserPrincipal {
-        val principalClaims = claims[userKey] as? String
+    private fun getAddress(claims: Claims): Address {
+        val address = claims[userKey] as? String
             ?: throw TokenException("Token principal claims in invalid format")
         try {
-            return objectMapper.readValue(principalClaims)
+            return objectMapper.readValue(address)
         } catch (ex: MissingKotlinParameterException) {
-            throw TokenException("Could not extract user principal from JWT token for key: $userKey", ex)
+            throw TokenException("Could not extract address from JWT token for key: $userKey", ex)
         }
     }
 }

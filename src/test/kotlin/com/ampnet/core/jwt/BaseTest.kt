@@ -1,8 +1,5 @@
 package com.ampnet.core.jwt
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import java.util.UUID
-
 abstract class BaseTest {
 
     protected val publicKey = "-----BEGIN PUBLIC KEY-----\n" +
@@ -44,23 +41,5 @@ abstract class BaseTest {
         "-----END PRIVATE KEY-----"
 
     protected val validityInMillis = 500 * 60L
-    protected val userPrincipal = UserPrincipal(
-        UUID.fromString("370a248e-cbd0-4af8-b1d5-0851a3d654db"),
-        "e@mail.com",
-        "Name",
-        setOf("Auth"),
-        true,
-        true,
-        "ampnet-demo"
-    )
-
-    protected fun assertUserPrincipal(decodedUserPrincipal: UserPrincipal) {
-        assertEquals(userPrincipal.uuid.toString(), decodedUserPrincipal.uuid.toString())
-        assertEquals(userPrincipal.email, decodedUserPrincipal.email)
-        assertEquals(userPrincipal.name, decodedUserPrincipal.name)
-        assertEquals(userPrincipal.authorities.toString(), decodedUserPrincipal.authorities.toString())
-        assertEquals(userPrincipal.enabled, decodedUserPrincipal.enabled)
-        assertEquals(userPrincipal.verified, decodedUserPrincipal.verified)
-        assertEquals(userPrincipal.coop, decodedUserPrincipal.coop)
-    }
+    protected val address = Address("0x745367860c5015B1E0AC04E00f1DbAd83B7dC272")
 }

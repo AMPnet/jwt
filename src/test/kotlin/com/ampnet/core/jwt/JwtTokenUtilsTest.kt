@@ -2,6 +2,7 @@ package com.ampnet.core.jwt
 
 import com.ampnet.core.jwt.exception.KeyException
 import com.ampnet.core.jwt.exception.TokenException
+import junit.framework.TestCase.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -9,10 +10,10 @@ class JwtTokenUtilsTest : BaseTest() {
 
     @Test
     fun mustBeAbleToEncodeAndDecodeJwtToken() {
-        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, privateKey, validityInMillis)
+        val jwtToken = JwtTokenUtils.encodeToken(address, privateKey, validityInMillis)
 
-        val decodedUserPrincipal = JwtTokenUtils.decodeToken(jwtToken, publicKey)
-        assertUserPrincipal(decodedUserPrincipal)
+        val decodedAddress = JwtTokenUtils.decodeToken(jwtToken, publicKey)
+        assertEquals(decodedAddress, address)
     }
 
     @Test
@@ -31,7 +32,7 @@ class JwtTokenUtilsTest : BaseTest() {
 
     @Test
     fun mustThrowExceptionForDecodingWithWrongPublicKey() {
-        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, privateKey, validityInMillis)
+        val jwtToken = JwtTokenUtils.encodeToken(address, privateKey, validityInMillis)
         val wrongPublicKey = "-----BEGIN PUBLIC KEY-----\n" +
             "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs8VzstcVP4YYjfy3dJTr\n" +
             "0fH3L6gXVDrR1TP+3Vx3oUhm5LomHUEcDEKa3ilL0Xat/wjSdd2CHqLv+9uEesV+\n" +
@@ -48,7 +49,7 @@ class JwtTokenUtilsTest : BaseTest() {
 
     @Test
     fun mustThrowExceptionForInvalidPublicKey() {
-        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, privateKey, validityInMillis)
+        val jwtToken = JwtTokenUtils.encodeToken(address, privateKey, validityInMillis)
         val invalidPublicKey = "asdfIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBC"
         assertThrows<KeyException> {
             JwtTokenUtils.decodeToken(jwtToken, invalidPublicKey)
@@ -59,7 +60,7 @@ class JwtTokenUtilsTest : BaseTest() {
     fun mustThrowExceptionForInvalidPrivateKey() {
         val invalidPrivateKey = "asdfIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBC"
         assertThrows<KeyException> {
-            JwtTokenUtils.encodeToken(userPrincipal, invalidPrivateKey, validityInMillis)
+            JwtTokenUtils.encodeToken(address, invalidPrivateKey, validityInMillis)
         }
     }
 }

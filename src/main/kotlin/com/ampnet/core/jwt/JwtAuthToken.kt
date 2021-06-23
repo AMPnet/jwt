@@ -2,39 +2,26 @@ package com.ampnet.core.jwt
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import java.util.Collections
 
-class JwtAuthToken(private val token: String, private val userPrincipal: UserPrincipal? = null) : Authentication {
-
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority>? {
-        val authorities = userPrincipal?.authorities
-            ?.map { SimpleGrantedAuthority(it) }?.toList()
-            .orEmpty()
-        return Collections.checkedCollection(authorities, SimpleGrantedAuthority::class.java)
-    }
+class JwtAuthToken(private val token: String, private val address: Address? = null) : Authentication {
 
     override fun setAuthenticated(isAuthenticated: Boolean) {
         // not needed
     }
 
-    override fun getName(): String? {
-        return userPrincipal?.uuid.toString()
+    override fun getName(): String? = address?.userAddress
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        TODO("Not yet implemented")
     }
 
-    override fun getCredentials(): Any {
-        return token
+    override fun getCredentials(): Any = token
+
+    override fun getDetails(): Any {
+        TODO("Not yet implemented")
     }
 
-    override fun getPrincipal(): Any? {
-        return userPrincipal
-    }
+    override fun getPrincipal(): Any? = address
 
-    override fun isAuthenticated(): Boolean {
-        return userPrincipal != null
-    }
-
-    override fun getDetails(): Any? {
-        return userPrincipal?.email
-    }
+    override fun isAuthenticated(): Boolean = address != null
 }

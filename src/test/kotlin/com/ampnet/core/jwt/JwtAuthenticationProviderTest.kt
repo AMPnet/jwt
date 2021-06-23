@@ -1,6 +1,7 @@
 package com.ampnet.core.jwt
 
 import com.ampnet.core.jwt.provider.JwtAuthenticationProvider
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
@@ -16,16 +17,16 @@ class JwtAuthenticationProviderTest : BaseTest() {
 
     @Test
     fun mustReturnJwtAuthToken() {
-        val jwtToken = JwtTokenUtils.encodeToken(userPrincipal, privateKey, validityInMillis)
+        val jwtToken = JwtTokenUtils.encodeToken(address, privateKey, validityInMillis)
         val incomingAuth = JwtAuthToken(jwtToken)
         assertFalse(incomingAuth.isAuthenticated)
 
         val authentication = authenticationProvider.authenticate(incomingAuth)
         assertTrue(authentication.isAuthenticated)
 
-        val userPrincipal = authentication.principal as? UserPrincipal
-            ?: fail("Missing principal in JwtAuthToken")
-        assertUserPrincipal(userPrincipal)
+        val addressAuthenticated = authentication.principal as? Address
+            ?: fail("Missing address in JwtAuthToken")
+        assertEquals(addressAuthenticated, address)
     }
 
     @Test
